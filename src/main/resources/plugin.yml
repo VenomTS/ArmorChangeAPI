@@ -1,0 +1,4 @@
+name: ArmorEquip
+version: '${project.version}'
+main: me.venom.armorequip.ArmorEquip
+api-version: '1.20'
