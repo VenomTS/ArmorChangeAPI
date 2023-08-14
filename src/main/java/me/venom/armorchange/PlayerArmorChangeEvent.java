@@ -19,6 +19,7 @@ public class PlayerArmorChangeEvent extends PlayerEvent implements Cancellable
         MOUSE_CLICK,
         MOUSE_SHIFT_CLICK,
         ITEM_BREAK,
+        ITEM_DROP,
         PLAYER_DEATH,
         PLAYER_INTERACT
     }

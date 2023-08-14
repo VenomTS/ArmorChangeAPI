@@ -27,11 +27,9 @@ public class DispenserDispenseArmor implements Listener
         ItemStack armorItem = event.getItem();
         PlayerArmorChangeEvent armorEvent = new PlayerArmorChangeEvent(p, null, armorItem, ChangeMethod.DISPENSER_EQUIP);
         Bukkit.getPluginManager().callEvent(armorEvent);
-        if(armorEvent.isCancelled())
-        {
-            event.setCancelled(true);
-            if(utils.hasSpaceInInventory(p)) { p.getWorld().dropItemNaturally(p.getLocation(), armorItem); }
-            else { p.getInventory().addItem(armorItem); }
-        }
+        if(!armorEvent.isCancelled()) return;
+        event.setCancelled(true);
+        if(utils.hasSpaceInInventory(p)) { p.getWorld().dropItemNaturally(p.getLocation(), armorItem); }
+        else { p.getInventory().addItem(armorItem); }
     }
 }

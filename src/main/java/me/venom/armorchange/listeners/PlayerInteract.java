@@ -38,6 +38,7 @@ public class PlayerInteract implements Listener
         if(playerArmor != null && playerArmor.getType() == Material.AIR) playerArmor = null;
         PlayerArmorChangeEvent armorEvent = new PlayerArmorChangeEvent(p, playerArmor, newArmor, ChangeMethod.PLAYER_INTERACT);
         Bukkit.getPluginManager().callEvent(armorEvent);
+        event.setCancelled(armorEvent.isCancelled());
     }
 
 }

@@ -32,7 +32,16 @@ public class InventoryInteract implements Listener
         Inventory clickedInv = event.getClickedInventory();
         int rawSlot = event.getRawSlot(), slot = event.getSlot();
         if(clickedInv == null || clickedInv.getType() != InventoryType.PLAYER || inv.getType() != InventoryType.CRAFTING) return;
-        if(event.getClick() == ClickType.SWAP_OFFHAND)
+        if(event.getClick() == ClickType.DROP || event.getClick() == ClickType.CONTROL_DROP)
+        {
+            if(event.getSlotType() != InventoryType.SlotType.ARMOR) return;
+            ItemStack oldItem = clickedInv.getItem(slot);
+            if(utils.isEmptySlot(oldItem)) return;
+            PlayerArmorChangeEvent armorEvent = new PlayerArmorChangeEvent(p, oldItem, null, ChangeMethod.ITEM_DROP);
+            Bukkit.getPluginManager().callEvent(armorEvent);
+            event.setCancelled(armorEvent.isCancelled());
+        }
+        else if(event.getClick() == ClickType.SWAP_OFFHAND)
         {
             if(event.getSlotType() != InventoryType.SlotType.ARMOR) return;
             ItemStack oldItem = clickedInv.getItem(slot);
