@@ -5,6 +5,9 @@ import me.venom.armorchange.PlayerArmorChangeEvent.ChangeMethod;
 import me.venom.armorchange.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.Tag;
+import org.bukkit.block.Block;
+import org.bukkit.entity.Interaction;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
@@ -13,6 +16,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.RecipeChoice;
 
 public class PlayerInteract implements Listener
 {
@@ -25,7 +29,7 @@ public class PlayerInteract implements Listener
     public void onPlayerInteract(PlayerInteractEvent event)
     {
         if (!(event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK)) return;
-        if (!event.useInteractedBlock().equals(Event.Result.DENY)) return;
+        if(event.getClickedBlock() != null && event.getClickedBlock().getType().isInteractable()) return;
         Player p = event.getPlayer();
         ItemStack handItem = p.getInventory().getItemInMainHand();
         ItemStack offHandItem = p.getInventory().getItemInOffHand();
