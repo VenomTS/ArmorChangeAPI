@@ -20,7 +20,7 @@ public class ItemBreak implements Listener
 
     public ItemBreak(Utils utils) { this.utils = utils; }
 
-    @EventHandler(priority = EventPriority.HIGHEST)
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onItemBreak(PlayerItemBreakEvent event)
     {
         Player p = event.getPlayer();

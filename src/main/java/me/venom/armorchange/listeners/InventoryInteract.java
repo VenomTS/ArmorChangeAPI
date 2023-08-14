@@ -22,7 +22,7 @@ public class InventoryInteract implements Listener
 
     public InventoryInteract(Utils utils) { this.utils = utils; }
 
-    @EventHandler(priority = EventPriority.HIGHEST)
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onInventoryClick(InventoryClickEvent event)
     {
         // NOTE: EVENT TAKES WHAT WAS IN THE SLOT BEFORE BEING CLICKED

@@ -16,7 +16,7 @@ import java.util.Set;
 public class InventoryDrag implements Listener
 {
 
-    @EventHandler(priority = EventPriority.HIGHEST)
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onInventoryDrag(InventoryDragEvent event)
     {
         if(event.getInventory().getType() != InventoryType.CRAFTING) return;

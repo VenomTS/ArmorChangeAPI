@@ -35,7 +35,7 @@ public final class ArmorChange extends JavaPlugin
         Bukkit.getPluginManager().registerEvents(new PlayerInteract(utils), this);
         Bukkit.getPluginManager().registerEvents(new InventoryInteract(utils), this);
         Bukkit.getPluginManager().registerEvents(new InventoryDrag(), this);
-        Bukkit.getPluginManager().registerEvents(new DispenserDispenseArmor(utils), this);
+        Bukkit.getPluginManager().registerEvents(new DispenserDispenseArmor(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerDeath(), this);
         Bukkit.getPluginManager().registerEvents(new ItemBreak(utils), this);
     }
