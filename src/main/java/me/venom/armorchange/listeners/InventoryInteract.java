@@ -1,7 +1,9 @@
 package me.venom.armorchange.listeners;
 
-import me.venom.armorchange.ArmorChange;
+import me.venom.armorchange.PlayerArmorChangeEvent;
+import me.venom.armorchange.PlayerArmorChangeEvent.ChangeMethod;
 import me.venom.armorchange.Utils;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -16,9 +18,9 @@ import org.bukkit.inventory.ItemStack;
 public class InventoryInteract implements Listener
 {
 
-    private final ArmorChange main;
+    private final Utils utils;
 
-    public InventoryInteract(ArmorChange armorChange) { main = armorChange; }
+    public InventoryInteract(Utils utils) { this.utils = utils; }
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onInventoryClick(InventoryClickEvent event)
@@ -38,8 +40,10 @@ public class InventoryInteract implements Listener
             if(oldItem != null && oldItem.getType() == Material.AIR) oldItem = null;
             if(newItem.getType() == Material.AIR) newItem = null;
             if(oldItem == null && newItem == null) return;
-            if(newItem != null && !Utils.correctArmorPieceForSlot(newItem, rawSlot)) return;
-            main.callEvent(p, oldItem, newItem);
+            if(newItem != null && !utils.correctArmorPieceForSlot(newItem, rawSlot)) return;
+            PlayerArmorChangeEvent armorEvent = new PlayerArmorChangeEvent(p, oldItem, newItem, ChangeMethod.OFFHAND_SWAP);
+            Bukkit.getPluginManager().callEvent(armorEvent);
+            event.setCancelled(armorEvent.isCancelled());
         }
         else if(event.getClick() == ClickType.NUMBER_KEY)
         {
@@ -47,8 +51,10 @@ public class InventoryInteract implements Listener
             ItemStack oldItem = clickedInv.getItem(slot);
             ItemStack newItem = clickedInv.getItem(event.getHotbarButton());
             if(oldItem == null && newItem == null) return;
-            if(newItem != null && !Utils.correctArmorPieceForSlot(newItem, rawSlot)) return;
-            main.callEvent(p, oldItem, newItem);
+            if(newItem != null && !utils.correctArmorPieceForSlot(newItem, rawSlot)) return;
+            PlayerArmorChangeEvent armorEvent = new PlayerArmorChangeEvent(p, oldItem, newItem, ChangeMethod.NUMBER_SWAP);
+            Bukkit.getPluginManager().callEvent(armorEvent);
+            event.setCancelled(armorEvent.isCancelled());
         }
         else if(event.getClick() == ClickType.LEFT || event.getClick() == ClickType.RIGHT)
         {
@@ -58,26 +64,33 @@ public class InventoryInteract implements Listener
             if(oldItem != null && oldItem.getType() == Material.AIR) { oldItem = null; }
             if(newItem != null && newItem.getType() == Material.AIR) { newItem = null; }
             if(oldItem == null && newItem == null) return;
-            if((Utils.isArmor(newItem) && Utils.correctArmorPieceForSlot(newItem, rawSlot)) || Utils.isEmptySlot(newItem))
+            if((utils.isArmor(newItem) && utils.correctArmorPieceForSlot(newItem, rawSlot)) || utils.isEmptySlot(newItem))
             {
-                main.callEvent(p, oldItem, newItem);
+                PlayerArmorChangeEvent armorEvent = new PlayerArmorChangeEvent(p, oldItem, newItem, ChangeMethod.MOUSE_CLICK);
+                Bukkit.getPluginManager().callEvent(armorEvent);
+                event.setCancelled(armorEvent.isCancelled());
             }
         }
         else if(event.getClick() == ClickType.SHIFT_LEFT || event.getClick() == ClickType.SHIFT_RIGHT)
         {
             ItemStack handItem = clickedInv.getItem(slot);
+            ItemStack newItem = null;
+            ItemStack oldItem = null;
             if(event.getSlotType() == InventoryType.SlotType.ARMOR)
             {
-                if(!Utils.hasSpaceInInventory(p)) return;
-                main.callEvent(p, handItem, null);
+                if(!utils.hasSpaceInInventory(p)) return;
+                oldItem = handItem;
             }
             else
             {
-                if(!Utils.isArmor(handItem) || handItem == null) return;
-                ItemStack armorSlot = Utils.playerInventoryByHeldItem(p, handItem);
-                if(!Utils.isEmptySlot(armorSlot)) return;
-                main.callEvent(p, null, handItem);
+                if(!utils.isArmor(handItem) || handItem == null) return;
+                ItemStack armorSlot = utils.playerInventoryByHeldItem(p, handItem);
+                if(!utils.isEmptySlot(armorSlot)) return;
+                newItem = handItem;
             }
+            PlayerArmorChangeEvent armorEvent = new PlayerArmorChangeEvent(p, oldItem, newItem, ChangeMethod.MOUSE_SHIFT_CLICK);
+            Bukkit.getPluginManager().callEvent(armorEvent);
+            event.setCancelled(armorEvent.isCancelled());
         }
     }
 

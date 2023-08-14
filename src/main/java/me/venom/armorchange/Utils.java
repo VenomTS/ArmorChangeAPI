@@ -9,12 +9,13 @@ import java.util.Set;
 
 public class Utils
 {
-    private static final Set<Material> helmetMaterials = getHelmetMaterials();
-    private static final Set<Material> chestplateMaterials = getChestplateMaterials();
-    private static final Set<Material> leggingsMaterials = getLeggingsMaterials();
-    private static final Set<Material> bootsMaterials = getBootsMaterials();
 
-    private static Set<Material> getHelmetMaterials()
+    private final Set<Material> helmetMaterials = getHelmetMaterials();
+    private final Set<Material> chestplateMaterials = getChestplateMaterials();
+    private final Set<Material> leggingsMaterials = getLeggingsMaterials();
+    private final Set<Material> bootsMaterials = getBootsMaterials();
+
+    private Set<Material> getHelmetMaterials()
     {
         Set<Material> materials = new HashSet<>();
         materials.add(Material.LEATHER_HELMET);
@@ -34,7 +35,7 @@ public class Utils
         materials.add(Material.ZOMBIE_HEAD);
         return materials;
     }
-    private static Set<Material> getChestplateMaterials()
+    private Set<Material> getChestplateMaterials()
     {
         Set<Material> materials = new HashSet<>();
         materials.add(Material.LEATHER_CHESTPLATE);
@@ -46,7 +47,7 @@ public class Utils
         return materials;
     }
 
-    private static Set<Material> getLeggingsMaterials()
+    private Set<Material> getLeggingsMaterials()
     {
         Set<Material> materials = new HashSet<>();
         materials.add(Material.LEATHER_LEGGINGS);
@@ -58,7 +59,7 @@ public class Utils
         return materials;
     }
 
-    private static Set<Material> getBootsMaterials()
+    private Set<Material> getBootsMaterials()
     {
         Set<Material> materials = new HashSet<>();
         materials.add(Material.LEATHER_BOOTS);
@@ -70,9 +71,9 @@ public class Utils
         return materials;
     }
 
-    public static boolean hasSpaceInInventory(Player p) { return p.getInventory().firstEmpty() != -1; }
+    public boolean hasSpaceInInventory(Player p) { return p.getInventory().firstEmpty() != -1; }
 
-    public static boolean correctArmorPieceForSlot(ItemStack armorPiece, int slot)
+    public boolean correctArmorPieceForSlot(ItemStack armorPiece, int slot)
     {
         if(armorPiece == null) return false;
         Material material = armorPiece.getType();
@@ -82,26 +83,26 @@ public class Utils
                 (slot == 8 && bootsMaterials.contains(material));
     }
 
-    public static boolean isArmor(ItemStack item)
+    public boolean isArmor(ItemStack item)
     {
         if(isEmptySlot(item)) return false;
         return isHelmet(item) || isChestplate(item) || isLeggings(item) || isBoots(item);
     }
 
-    public static boolean isEmptySlot(ItemStack item) { return item == null || item.getType() == Material.AIR; }
+    public boolean isEmptySlot(ItemStack item) { return item == null || item.getType() == Material.AIR; }
 
-    public static boolean isHelmet(ItemStack item) { return helmetMaterials.contains(item.getType()); }
-    public static boolean isChestplate(ItemStack item) { return chestplateMaterials.contains(item.getType()); }
-    public static boolean isLeggings(ItemStack item) { return leggingsMaterials.contains(item.getType()); }
-    public static boolean isBoots(ItemStack item) { return bootsMaterials.contains(item.getType()); }
+    public boolean isHelmet(ItemStack item) { return helmetMaterials.contains(item.getType()); }
+    public boolean isChestplate(ItemStack item) { return chestplateMaterials.contains(item.getType()); }
+    public boolean isLeggings(ItemStack item) { return leggingsMaterials.contains(item.getType()); }
+    public boolean isBoots(ItemStack item) { return bootsMaterials.contains(item.getType()); }
 
-    public static ItemStack playerInventoryByHeldItem(Player p, ItemStack handItem)
+    public ItemStack playerInventoryByHeldItem(Player p, ItemStack handItem)
     {
         if(handItem == null) return null;
-        if(Utils.isHelmet(handItem)) return p.getInventory().getHelmet();
-        else if(Utils.isChestplate(handItem)) return p.getInventory().getChestplate();
-        else if(Utils.isLeggings(handItem)) return p.getInventory().getLeggings();
-        else if(Utils.isBoots(handItem)) return p.getInventory().getBoots();
+        if(isHelmet(handItem)) return p.getInventory().getHelmet();
+        else if(isChestplate(handItem)) return p.getInventory().getChestplate();
+        else if(isLeggings(handItem)) return p.getInventory().getLeggings();
+        else if(isBoots(handItem)) return p.getInventory().getBoots();
         return null;
     }
 }

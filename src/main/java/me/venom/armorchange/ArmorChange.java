@@ -4,14 +4,19 @@ import me.venom.armorchange.listeners.*;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.ConsoleCommandSender;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public final class ArmorChange extends JavaPlugin {
+public final class ArmorChange extends JavaPlugin
+{
+
+    private final Utils utils = new Utils();
 
     @Override
-    public void onEnable() { sendLogoMessage(); implementListeners(); }
+    public void onEnable()
+    {
+        sendLogoMessage();
+        implementListeners();
+    }
 
     @Override
     public void onDisable()
@@ -27,17 +32,11 @@ public final class ArmorChange extends JavaPlugin {
 
     private void implementListeners()
     {
-        Bukkit.getPluginManager().registerEvents(new PlayerInteract(this), this);
-        Bukkit.getPluginManager().registerEvents(new InventoryInteract(this), this);
-        Bukkit.getPluginManager().registerEvents(new InventoryDrag(this), this);
-        Bukkit.getPluginManager().registerEvents(new DispenserDispenseArmor(this), this);
-        Bukkit.getPluginManager().registerEvents(new JoinDeath(this), this);
-        Bukkit.getPluginManager().registerEvents(new ItemBreak(this), this);
-    }
-
-    public void callEvent(Player p, ItemStack oldItem, ItemStack newItem)
-    {
-        Bukkit.getScheduler().runTaskLater(this, () ->
-                Bukkit.getPluginManager().callEvent(new PlayerArmorChangeEvent(p, oldItem, newItem)), 1L);
+        Bukkit.getPluginManager().registerEvents(new PlayerInteract(utils), this);
+        Bukkit.getPluginManager().registerEvents(new InventoryInteract(utils), this);
+        Bukkit.getPluginManager().registerEvents(new InventoryDrag(), this);
+        Bukkit.getPluginManager().registerEvents(new DispenserDispenseArmor(utils), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerDeath(), this);
+        Bukkit.getPluginManager().registerEvents(new ItemBreak(utils), this);
     }
 }

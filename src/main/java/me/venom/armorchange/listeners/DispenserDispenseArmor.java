@@ -1,6 +1,9 @@
 package me.venom.armorchange.listeners;
 
-import me.venom.armorchange.ArmorChange;
+import me.venom.armorchange.PlayerArmorChangeEvent;
+import me.venom.armorchange.PlayerArmorChangeEvent.ChangeMethod;
+import me.venom.armorchange.Utils;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -11,9 +14,9 @@ import org.bukkit.inventory.ItemStack;
 public class DispenserDispenseArmor implements Listener
 {
 
-    private final ArmorChange main;
+    private final Utils utils;
 
-    public DispenserDispenseArmor(ArmorChange armorChange) { main = armorChange; }
+    public DispenserDispenseArmor(Utils utils) { this.utils = utils; }
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onDispenserDispenseArmor(BlockDispenseArmorEvent event)
@@ -22,6 +25,13 @@ public class DispenserDispenseArmor implements Listener
         if(!(event.getTargetEntity() instanceof Player)) return;
         Player p = (Player) event.getTargetEntity();
         ItemStack armorItem = event.getItem();
-        main.callEvent(p, null, armorItem);
+        PlayerArmorChangeEvent armorEvent = new PlayerArmorChangeEvent(p, null, armorItem, ChangeMethod.DISPENSER_EQUIP);
+        Bukkit.getPluginManager().callEvent(armorEvent);
+        if(armorEvent.isCancelled())
+        {
+            event.setCancelled(true);
+            if(utils.hasSpaceInInventory(p)) { p.getWorld().dropItemNaturally(p.getLocation(), armorItem); }
+            else { p.getInventory().addItem(armorItem); }
+        }
     }
 }

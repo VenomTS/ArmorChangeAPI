@@ -1,6 +1,8 @@
 package me.venom.armorchange.listeners;
 
-import me.venom.armorchange.ArmorChange;
+import me.venom.armorchange.PlayerArmorChangeEvent;
+import me.venom.armorchange.PlayerArmorChangeEvent.ChangeMethod;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -14,10 +16,6 @@ import java.util.Set;
 public class InventoryDrag implements Listener
 {
 
-    private final ArmorChange main;
-
-    public InventoryDrag(ArmorChange armorChange) { main = armorChange; }
-
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onInventoryDrag(InventoryDragEvent event)
     {
@@ -30,7 +28,9 @@ public class InventoryDrag implements Listener
         else if(rawSlots.contains(7)) { newItem = event.getNewItems().get(7); }
         else if(rawSlots.contains(8)) { newItem = event.getNewItems().get(8); }
         if(newItem == null) return;
-        main.callEvent(p, null, newItem);
+        PlayerArmorChangeEvent armorEvent = new PlayerArmorChangeEvent(p, null, newItem, ChangeMethod.INVENTORY_DRAG);
+        Bukkit.getPluginManager().callEvent(armorEvent);
+        event.setCancelled(armorEvent.isCancelled());
     }
 
 }
