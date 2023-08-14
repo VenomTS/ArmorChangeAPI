@@ -1,6 +1,6 @@
-package me.venom.armorequip.listeners;
+package me.venom.armorchange.listeners;
 
-import me.venom.armorequip.ArmorEquip;
+import me.venom.armorchange.ArmorChange;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -11,9 +11,9 @@ import org.bukkit.inventory.ItemStack;
 public class DispenserDispenseArmor implements Listener
 {
 
-    private final ArmorEquip main;
+    private final ArmorChange main;
 
-    public DispenserDispenseArmor(ArmorEquip armorEquip) { main = armorEquip; }
+    public DispenserDispenseArmor(ArmorChange armorChange) { main = armorChange; }
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onDispenserDispenseArmor(BlockDispenseArmorEvent event)

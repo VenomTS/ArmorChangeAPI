@@ -1,6 +1,6 @@
-package me.venom.armorequip;
+package me.venom.armorchange;
 
-import me.venom.armorequip.listeners.*;
+import me.venom.armorchange.listeners.*;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.ConsoleCommandSender;
@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public final class ArmorEquip extends JavaPlugin {
+public final class ArmorChange extends JavaPlugin {
 
     @Override
     public void onEnable() { sendLogoMessage(); implementListeners(); }

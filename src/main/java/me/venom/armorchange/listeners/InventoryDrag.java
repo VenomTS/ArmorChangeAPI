@@ -1,6 +1,6 @@
-package me.venom.armorequip.listeners;
+package me.venom.armorchange.listeners;
 
-import me.venom.armorequip.ArmorEquip;
+import me.venom.armorchange.ArmorChange;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -14,9 +14,9 @@ import java.util.Set;
 public class InventoryDrag implements Listener
 {
 
-    private final ArmorEquip main;
+    private final ArmorChange main;
 
-    public InventoryDrag(ArmorEquip armorEquip) { main = armorEquip; }
+    public InventoryDrag(ArmorChange armorChange) { main = armorChange; }
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onInventoryDrag(InventoryDragEvent event)

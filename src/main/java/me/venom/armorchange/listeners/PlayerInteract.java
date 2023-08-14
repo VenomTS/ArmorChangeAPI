@@ -1,7 +1,7 @@
-package me.venom.armorequip.listeners;
+package me.venom.armorchange.listeners;
 
-import me.venom.armorequip.ArmorEquip;
-import me.venom.armorequip.Utils;
+import me.venom.armorchange.ArmorChange;
+import me.venom.armorchange.Utils;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
@@ -15,9 +15,9 @@ import org.bukkit.inventory.ItemStack;
 public class PlayerInteract implements Listener
 {
 
-    private final ArmorEquip main;
+    private final ArmorChange main;
 
-    public PlayerInteract(ArmorEquip armorEquip) { main = armorEquip; }
+    public PlayerInteract(ArmorChange armorChange) { main = armorChange; }
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerInteract(PlayerInteractEvent event)

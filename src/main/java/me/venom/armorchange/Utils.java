@@ -1,4 +1,4 @@
-package me.venom.armorequip;
+package me.venom.armorchange;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Player;

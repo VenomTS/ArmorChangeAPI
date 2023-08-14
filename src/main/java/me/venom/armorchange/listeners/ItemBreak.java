@@ -1,7 +1,7 @@
-package me.venom.armorequip.listeners;
+package me.venom.armorchange.listeners;
 
-import me.venom.armorequip.ArmorEquip;
-import me.venom.armorequip.Utils;
+import me.venom.armorchange.ArmorChange;
+import me.venom.armorchange.Utils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -12,9 +12,9 @@ import org.bukkit.inventory.ItemStack;
 public class ItemBreak implements Listener
 {
 
-    private final ArmorEquip main;
+    private final ArmorChange main;
 
-    public ItemBreak(ArmorEquip armorEquip) { main = armorEquip; }
+    public ItemBreak(ArmorChange armorChange) { main = armorChange; }
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onItemBreak(PlayerItemBreakEvent event)
     {
