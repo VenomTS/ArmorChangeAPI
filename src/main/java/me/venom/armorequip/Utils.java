@@ -85,7 +85,7 @@ public class Utils
 
     public static void callArmorEquipEvent(Player p, ItemStack oldItem, ItemStack newItem)
     {
-        Bukkit.getPluginManager().callEvent(new ArmorPlayerEvent(p, oldItem, newItem));
+        Bukkit.getPluginManager().callEvent(new PlayerArmorChangeEvent(p, oldItem, newItem));
     }
 
     public static boolean isArmor(ItemStack item)

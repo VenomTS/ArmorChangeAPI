@@ -6,14 +6,14 @@ import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.inventory.ItemStack;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
-public class ArmorPlayerEvent extends PlayerEvent
+public class PlayerArmorChangeEvent extends PlayerEvent
 {
 
     private final ItemStack oldArmorPiece, newArmorPiece;
 
     private static final HandlerList HANDLERS = new HandlerList();
 
-    public ArmorPlayerEvent(final Player player, final ItemStack oldArmor, final ItemStack newArmor)
+    public PlayerArmorChangeEvent(final Player player, final ItemStack oldArmor, final ItemStack newArmor)
     {
         super(player);
         oldArmorPiece = oldArmor;

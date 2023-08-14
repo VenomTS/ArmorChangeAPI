@@ -32,6 +32,8 @@ public class InventoryInteract implements Listener
             ItemStack newItem = p.getInventory().getItemInOffHand();
             if(oldItem != null && oldItem.getType() == Material.AIR) oldItem = null;
             if(newItem.getType() == Material.AIR) newItem = null;
+            if(oldItem == null && newItem == null) return;
+            if(newItem != null && !Utils.correctArmorPieceForSlot(newItem, rawSlot)) return;
             Utils.callArmorEquipEvent(p, oldItem, newItem);
         }
         else if(event.getClick() == ClickType.NUMBER_KEY)
@@ -39,7 +41,8 @@ public class InventoryInteract implements Listener
             if(event.getSlotType() != InventoryType.SlotType.ARMOR) return;
             ItemStack oldItem = clickedInv.getItem(slot);
             ItemStack newItem = clickedInv.getItem(event.getHotbarButton());
-            if(!Utils.isArmor(newItem)) return;
+            if(oldItem == null && newItem == null) return;
+            if(newItem != null && !Utils.correctArmorPieceForSlot(newItem, rawSlot)) return;
             Utils.callArmorEquipEvent(p, oldItem, newItem);
         }
         else if(event.getClick() == ClickType.LEFT || event.getClick() == ClickType.RIGHT)
