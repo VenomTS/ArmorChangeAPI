@@ -1,5 +1,6 @@
 package me.venom.armorequip.listeners;
 
+import me.venom.armorequip.ArmorEquip;
 import me.venom.armorequip.Utils;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -14,6 +15,10 @@ import org.bukkit.inventory.ItemStack;
 
 public class InventoryInteract implements Listener
 {
+
+    private final ArmorEquip main;
+
+    public InventoryInteract(ArmorEquip armorEquip) { main = armorEquip; }
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onInventoryClick(InventoryClickEvent event)
@@ -34,7 +39,7 @@ public class InventoryInteract implements Listener
             if(newItem.getType() == Material.AIR) newItem = null;
             if(oldItem == null && newItem == null) return;
             if(newItem != null && !Utils.correctArmorPieceForSlot(newItem, rawSlot)) return;
-            Utils.callArmorEquipEvent(p, oldItem, newItem);
+            main.callEvent(p, oldItem, newItem);
         }
         else if(event.getClick() == ClickType.NUMBER_KEY)
         {
@@ -43,7 +48,7 @@ public class InventoryInteract implements Listener
             ItemStack newItem = clickedInv.getItem(event.getHotbarButton());
             if(oldItem == null && newItem == null) return;
             if(newItem != null && !Utils.correctArmorPieceForSlot(newItem, rawSlot)) return;
-            Utils.callArmorEquipEvent(p, oldItem, newItem);
+            main.callEvent(p, oldItem, newItem);
         }
         else if(event.getClick() == ClickType.LEFT || event.getClick() == ClickType.RIGHT)
         {
@@ -55,7 +60,7 @@ public class InventoryInteract implements Listener
             if(oldItem == null && newItem == null) return;
             if((Utils.isArmor(newItem) && Utils.correctArmorPieceForSlot(newItem, rawSlot)) || Utils.isEmptySlot(newItem))
             {
-                Utils.callArmorEquipEvent(p, oldItem, newItem);
+                main.callEvent(p, oldItem, newItem);
             }
         }
         else if(event.getClick() == ClickType.SHIFT_LEFT || event.getClick() == ClickType.SHIFT_RIGHT)
@@ -64,14 +69,14 @@ public class InventoryInteract implements Listener
             if(event.getSlotType() == InventoryType.SlotType.ARMOR)
             {
                 if(!Utils.hasSpaceInInventory(p)) return;
-                Utils.callArmorEquipEvent(p, handItem, null);
+                main.callEvent(p, handItem, null);
             }
             else
             {
                 if(!Utils.isArmor(handItem) || handItem == null) return;
                 ItemStack armorSlot = Utils.playerInventoryByHeldItem(p, handItem);
                 if(!Utils.isEmptySlot(armorSlot)) return;
-                Utils.callArmorEquipEvent(p, null, handItem);
+                main.callEvent(p, null, handItem);
             }
         }
     }

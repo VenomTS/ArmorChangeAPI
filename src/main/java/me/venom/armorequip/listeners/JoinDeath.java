@@ -1,5 +1,6 @@
 package me.venom.armorequip.listeners;
 
+import me.venom.armorequip.ArmorEquip;
 import me.venom.armorequip.Utils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -12,6 +13,10 @@ import org.bukkit.inventory.ItemStack;
 public class JoinDeath implements Listener
 {
 
+    private final ArmorEquip main;
+
+    public JoinDeath(ArmorEquip armorEquip) { main = armorEquip; }
+
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerJoin(PlayerJoinEvent event)
     {
@@ -20,10 +25,10 @@ public class JoinDeath implements Listener
         ItemStack chestplate = p.getInventory().getChestplate();
         ItemStack leggings = p.getInventory().getLeggings();
         ItemStack boots = p.getInventory().getBoots();
-        if(Utils.isArmor(helmet)) { Utils.callArmorEquipEvent(p, null, helmet); }
-        if(Utils.isArmor(chestplate)) { Utils.callArmorEquipEvent(p, null, chestplate); }
-        if(Utils.isArmor(leggings)) { Utils.callArmorEquipEvent(p, null, leggings); }
-        if(Utils.isArmor(boots)) { Utils.callArmorEquipEvent(p, null, boots); }
+        if(Utils.isArmor(helmet)) { main.callEvent(p, null, helmet); }
+        if(Utils.isArmor(chestplate)) { main.callEvent(p, null, chestplate); }
+        if(Utils.isArmor(leggings)) { main.callEvent(p, null, leggings); }
+        if(Utils.isArmor(boots)) { main.callEvent(p, null, boots); }
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
@@ -34,10 +39,10 @@ public class JoinDeath implements Listener
         ItemStack chestplate = p.getInventory().getChestplate();
         ItemStack leggings = p.getInventory().getLeggings();
         ItemStack boots = p.getInventory().getBoots();
-        if(Utils.isArmor(helmet)) { Utils.callArmorEquipEvent(p, helmet, null); }
-        if(Utils.isArmor(chestplate)) { Utils.callArmorEquipEvent(p, chestplate, null); }
-        if(Utils.isArmor(leggings)) { Utils.callArmorEquipEvent(p, leggings, null); }
-        if(Utils.isArmor(boots)) { Utils.callArmorEquipEvent(p, boots, null); }
+        if(Utils.isArmor(helmet)) { main.callEvent(p, helmet, null); }
+        if(Utils.isArmor(chestplate)) { main.callEvent(p, chestplate, null); }
+        if(Utils.isArmor(leggings)) { main.callEvent(p, leggings, null); }
+        if(Utils.isArmor(boots)) { main.callEvent(p, boots, null); }
     }
 
 }

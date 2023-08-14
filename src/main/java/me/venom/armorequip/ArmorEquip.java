@@ -4,6 +4,8 @@ import me.venom.armorequip.listeners.*;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class ArmorEquip extends JavaPlugin {
@@ -25,12 +27,17 @@ public final class ArmorEquip extends JavaPlugin {
 
     private void implementListeners()
     {
-        Bukkit.getPluginManager().registerEvents(new PlayerInteract(), this);
-        Bukkit.getPluginManager().registerEvents(new InventoryInteract(), this);
-        Bukkit.getPluginManager().registerEvents(new InventoryDrag(), this);
-        Bukkit.getPluginManager().registerEvents(new DispenserDispenseArmor(), this);
-        Bukkit.getPluginManager().registerEvents(new JoinDeath(), this);
-        Bukkit.getPluginManager().registerEvents(new ItemBreak(), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerInteract(this), this);
+        Bukkit.getPluginManager().registerEvents(new InventoryInteract(this), this);
+        Bukkit.getPluginManager().registerEvents(new InventoryDrag(this), this);
+        Bukkit.getPluginManager().registerEvents(new DispenserDispenseArmor(this), this);
+        Bukkit.getPluginManager().registerEvents(new JoinDeath(this), this);
+        Bukkit.getPluginManager().registerEvents(new ItemBreak(this), this);
     }
 
+    public void callEvent(Player p, ItemStack oldItem, ItemStack newItem)
+    {
+        Bukkit.getScheduler().runTaskLater(this, () ->
+                Bukkit.getPluginManager().callEvent(new PlayerArmorChangeEvent(p, oldItem, newItem)), 1L);
+    }
 }

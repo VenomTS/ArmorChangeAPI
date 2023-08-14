@@ -1,6 +1,5 @@
 package me.venom.armorequip;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -81,11 +80,6 @@ public class Utils
                 (slot == 6 && chestplateMaterials.contains(material)) ||
                 (slot == 7 && leggingsMaterials.contains(material)) ||
                 (slot == 8 && bootsMaterials.contains(material));
-    }
-
-    public static void callArmorEquipEvent(Player p, ItemStack oldItem, ItemStack newItem)
-    {
-        Bukkit.getPluginManager().callEvent(new PlayerArmorChangeEvent(p, oldItem, newItem));
     }
 
     public static boolean isArmor(ItemStack item)

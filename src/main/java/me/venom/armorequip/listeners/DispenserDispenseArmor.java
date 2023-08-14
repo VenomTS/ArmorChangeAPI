@@ -1,6 +1,6 @@
 package me.venom.armorequip.listeners;
 
-import me.venom.armorequip.Utils;
+import me.venom.armorequip.ArmorEquip;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -11,6 +11,10 @@ import org.bukkit.inventory.ItemStack;
 public class DispenserDispenseArmor implements Listener
 {
 
+    private final ArmorEquip main;
+
+    public DispenserDispenseArmor(ArmorEquip armorEquip) { main = armorEquip; }
+
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onDispenserDispenseArmor(BlockDispenseArmorEvent event)
     {
@@ -18,6 +22,6 @@ public class DispenserDispenseArmor implements Listener
         if(!(event.getTargetEntity() instanceof Player)) return;
         Player p = (Player) event.getTargetEntity();
         ItemStack armorItem = event.getItem();
-        Utils.callArmorEquipEvent(p, null, armorItem);
+        main.callEvent(p, null, armorItem);
     }
 }

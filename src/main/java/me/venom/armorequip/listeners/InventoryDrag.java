@@ -1,6 +1,6 @@
 package me.venom.armorequip.listeners;
 
-import me.venom.armorequip.Utils;
+import me.venom.armorequip.ArmorEquip;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -14,6 +14,10 @@ import java.util.Set;
 public class InventoryDrag implements Listener
 {
 
+    private final ArmorEquip main;
+
+    public InventoryDrag(ArmorEquip armorEquip) { main = armorEquip; }
+
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onInventoryDrag(InventoryDragEvent event)
     {
@@ -26,7 +30,7 @@ public class InventoryDrag implements Listener
         else if(rawSlots.contains(7)) { newItem = event.getNewItems().get(7); }
         else if(rawSlots.contains(8)) { newItem = event.getNewItems().get(8); }
         if(newItem == null) return;
-        Utils.callArmorEquipEvent(p, null, newItem);
+        main.callEvent(p, null, newItem);
     }
 
 }

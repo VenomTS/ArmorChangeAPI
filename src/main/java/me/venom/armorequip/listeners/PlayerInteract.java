@@ -1,5 +1,6 @@
 package me.venom.armorequip.listeners;
 
+import me.venom.armorequip.ArmorEquip;
 import me.venom.armorequip.Utils;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -13,6 +14,10 @@ import org.bukkit.inventory.ItemStack;
 
 public class PlayerInteract implements Listener
 {
+
+    private final ArmorEquip main;
+
+    public PlayerInteract(ArmorEquip armorEquip) { main = armorEquip; }
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerInteract(PlayerInteractEvent event)
@@ -29,7 +34,7 @@ public class PlayerInteract implements Listener
         else if(Utils.isArmor(offHandItem)) { newArmor = offHandItem; playerArmor = Utils.playerInventoryByHeldItem(p, offHandItem); }
         if(newArmor == null) return;
         if(playerArmor != null && playerArmor.getType() == Material.AIR) playerArmor = null;
-        Utils.callArmorEquipEvent(p, playerArmor, newArmor);
+        main.callEvent(p, playerArmor, newArmor);
     }
 
 }
