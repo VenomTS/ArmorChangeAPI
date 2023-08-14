@@ -12,7 +12,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class PlayerDeath implements Listener
 {
-    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerDeath(PlayerDeathEvent event)
     {
         if(event.getKeepInventory()) return;

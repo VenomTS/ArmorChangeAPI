@@ -13,7 +13,7 @@ import org.bukkit.inventory.ItemStack;
 public class DispenserDispenseArmor implements Listener
 {
 
-    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onDispenserDispenseArmor(BlockDispenseArmorEvent event)
     {
         // Called only when entity is actually equiped with armor
