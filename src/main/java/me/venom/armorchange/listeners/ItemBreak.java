@@ -29,12 +29,14 @@ public class ItemBreak implements Listener
         PlayerArmorChangeEvent armorEvent = new PlayerArmorChangeEvent(p, brokenItem, null, ChangeMethod.ITEM_BREAK);
         Bukkit.getPluginManager().callEvent(armorEvent);
         if(!armorEvent.isCancelled()) return;
-        // Event was cancelled -> Set damage to 0 (one hit and it breaks)
+        // Event was cancelled -> Set damage to 1 (one hit and it breaks)
         ItemStack replaceItem = brokenItem.clone();
         replaceItem.setAmount(1);
         ItemMeta replaceItemMeta = replaceItem.getItemMeta();
         if(!(replaceItemMeta instanceof Damageable)) return;
         Damageable dmg = (Damageable) replaceItemMeta;
         dmg.setDamage(dmg.getDamage() - 1);
+        replaceItem.setItemMeta(replaceItemMeta);
+        utils.setArmorInSlot(p, replaceItem);
     }
 }

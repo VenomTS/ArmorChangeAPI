@@ -105,4 +105,13 @@ public class Utils
         else if(isBoots(handItem)) return p.getInventory().getBoots();
         return null;
     }
+
+    public void setArmorInSlot(Player p, ItemStack armor)
+    {
+        if(!isArmor(armor)) return;
+        if(isHelmet(armor)) p.getInventory().setHelmet(armor);
+        else if(isChestplate(armor)) p.getInventory().setChestplate(armor);
+        else if(isLeggings(armor)) p.getInventory().setLeggings(armor);
+        else if(isBoots(armor)) p.getInventory().setBoots(armor);
+    }
 }
