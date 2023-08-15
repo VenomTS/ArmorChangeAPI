@@ -2,22 +2,21 @@ package me.venom.armorchange;
 
 import me.venom.armorchange.listeners.*;
 import org.bukkit.Bukkit;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class ArmorChange extends JavaPlugin
 {
 
-    public ArmorChange() { implementListeners(); }
+    private static final Utils utils = new Utils();
 
-    private final Utils utils = new Utils();
-
-    private void implementListeners()
+    public static void implementListeners(Plugin plugin)
     {
-        Bukkit.getPluginManager().registerEvents(new PlayerInteract(utils), this);
-        Bukkit.getPluginManager().registerEvents(new InventoryInteract(utils), this);
-        Bukkit.getPluginManager().registerEvents(new InventoryDrag(), this);
-        Bukkit.getPluginManager().registerEvents(new DispenserDispenseArmor(), this);
-        Bukkit.getPluginManager().registerEvents(new PlayerDeath(), this);
-        Bukkit.getPluginManager().registerEvents(new ItemBreak(utils), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerInteract(utils), plugin);
+        Bukkit.getPluginManager().registerEvents(new InventoryInteract(utils), plugin);
+        Bukkit.getPluginManager().registerEvents(new InventoryDrag(), plugin);
+        Bukkit.getPluginManager().registerEvents(new DispenserDispenseArmor(), plugin);
+        Bukkit.getPluginManager().registerEvents(new PlayerDeath(), plugin);
+        Bukkit.getPluginManager().registerEvents(new ItemBreak(utils), plugin);
     }
 }
