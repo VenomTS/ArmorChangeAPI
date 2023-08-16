@@ -2,21 +2,37 @@ package me.venom.armorchange;
 
 import me.venom.armorchange.listeners.*;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.plugin.PluginManager;
 
-public final class ArmorChange extends JavaPlugin
+public final class ArmorChange
 {
 
-    private static final Utils utils = new Utils();
-
-    public static void implementListeners(Plugin plugin)
+    public ArmorChange(Plugin plugin)
     {
-        Bukkit.getPluginManager().registerEvents(new PlayerInteract(utils), plugin);
-        Bukkit.getPluginManager().registerEvents(new InventoryInteract(utils), plugin);
-        Bukkit.getPluginManager().registerEvents(new InventoryDrag(), plugin);
-        Bukkit.getPluginManager().registerEvents(new DispenserDispenseArmor(), plugin);
-        Bukkit.getPluginManager().registerEvents(new PlayerDeath(), plugin);
-        Bukkit.getPluginManager().registerEvents(new ItemBreak(utils), plugin);
+        sendLogoMessage();
+        implementListeners(plugin);
+    }
+
+    private final Utils utils = new Utils();
+
+    private void sendLogoMessage()
+    {
+        ConsoleCommandSender console = Bukkit.getConsoleSender();
+        console.sendMessage(ChatColor.GREEN + "<==========[ " + ChatColor.WHITE + "Armor Change" + ChatColor.GREEN + " ]==========>");
+        console.sendMessage(ChatColor.GREEN + "<==========[ " + ChatColor.WHITE + "By VenomTS" + ChatColor.GREEN + " ]==========>");
+    }
+
+    private void implementListeners(Plugin plugin)
+    {
+        PluginManager manager = Bukkit.getPluginManager();
+        manager.registerEvents(new PlayerInteract(utils), plugin);
+        manager.registerEvents(new InventoryInteract(utils), plugin);
+        manager.registerEvents(new InventoryDrag(), plugin);
+        manager.registerEvents(new DispenserDispenseArmor(), plugin);
+        manager.registerEvents(new PlayerDeath(), plugin);
+        manager.registerEvents(new ItemBreak(utils), plugin);
     }
 }
