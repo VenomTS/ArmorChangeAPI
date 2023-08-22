@@ -35,6 +35,7 @@ public class Utils
         materials.add(Material.ZOMBIE_HEAD);
         return materials;
     }
+
     private Set<Material> getChestplateMaterials()
     {
         Set<Material> materials = new HashSet<>();
@@ -44,6 +45,7 @@ public class Utils
         materials.add(Material.IRON_CHESTPLATE);
         materials.add(Material.DIAMOND_CHESTPLATE);
         materials.add(Material.NETHERITE_CHESTPLATE);
+        materials.add(Material.ELYTRA);
         return materials;
     }
 
