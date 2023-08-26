@@ -1,4 +1,0 @@
-name: ArmorChange
-version: '${project.version}'
-main: me.venom.armorchange.ArmorChange
-api-version: '1.20'
